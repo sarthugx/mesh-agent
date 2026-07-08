@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Workspace - Mesh-Agent{% endblock %}
+
+{% block page_title %}Workspace Sandboxed Directory{% endblock %}
+
+{% block content %}
+<div class="workspace-grid">
+    <!-- Left Files Explorer sidebar -->
+    <div class="workspace-sidebar glass-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <h3 style="font-size:16px; font-weight:600;">Files Sandbox</h3>
+            <button id="newFileBtn" class="btn-primary" style="padding: 6px 12px; font-size:13px; border-radius:8px;">+ New File</button>
+        </div>
+        <div style="font-size:12px; color:var(--text-muted); margin-bottom:12px; word-break:break-all;">
+            Jailed to: <code>workspace/</code>
+        </div>
+        
+        <!-- Files list -->
+        <ul id="fileList" class="file-list">
+            <!-- Loaded dynamically by Javascript -->
+            <li style="padding:12px; font-size:14px; color:var(--text-muted)">Loading workspace files...</li>
+        </ul>
+    </div>
+
+    <!-- Right File Editor workspace -->
+    <div class="workspace-detail">
+        <div class="editor-wrapper">
+            <div class="editor-header">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <svg viewBox="0 0 24 24" style="width:18px; height:18px; fill:none; stroke:var(--accent-cyan); stroke-width:2;">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+                    </svg>
+                    <span id="editorFileName" style="font-family:var(--font-mono); font-size:14px; font-weight:500;">No file open</span>
+                </div>
+                <div class="workspace-actions">
+                    <button id="saveFileBtn" class="btn-primary" style="padding: 8px 16px; font-size: 13px; border-radius: 8px;">Save Changes</button>
+                    <button id="deleteFileBtn" class="btn-secondary" style="padding: 8px 16px; font-size: 13px; border-radius: 8px; color:var(--accent-red); border-color:hsla(350, 80%, 60%, 0.3);">Delete</button>
+                </div>
+            </div>
+            <textarea id="editorTextarea" class="editor-textarea" placeholder="Select a file from the explorer sidebar to view or edit, or click '+ New File' to create one..." disabled></textarea>
+        </div>
+    </div>
+</div>
+{% endblock %}

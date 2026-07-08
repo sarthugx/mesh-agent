@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Chat - Mesh-Agent{% endblock %}
+
+{% block page_title %}AI Agent Workspace Chat{% endblock %}
+
+{% block content %}
+<div class="chat-wrapper">
+    <!-- Informational banner -->
+    <div class="glass-card" style="padding:14px 20px; font-size:14px; color:var(--text-secondary); display:flex; align-items:center; gap:10px;">
+        <svg viewBox="0 0 24 24" style="width:20px; height:20px; stroke:var(--accent-cyan); fill:none; stroke-width:2;">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+        <span>
+            Type a prompt for the AI agent. The agent can write, read, and list files inside the <code>workspace</code> folder and explain its work. You can check the execution steps in the **Terminal Logs** view!
+        </span>
+    </div>
+
+    <!-- Chat Console Bubble Area -->
+    <div id="chatHistory" class="chat-history">
+        <!-- Initial assistant welcome bubble if no logs present -->
+        <div class="chat-bubble assistant">
+            <p>Hello! I am the Mesh-Agent. I can help you create, inspect, or manage files in your sandboxed workspace directory.</p>
+            <p>Try prompting me with:</p>
+            <ul style="margin-left: 20px; margin-top: 8px; font-size: 14px; display:flex; flex-direction:column; gap:4px;">
+                <li><code>Write hello.txt with greeting content</code></li>
+                <li><code>Read the contents of hello.txt</code></li>
+                <li><code>List all files in my workspace</code></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- User Input Control -->
+    <div class="chat-input-container">
+        <input type="text" id="chatInput" class="chat-input" placeholder="Type your instruction to the agent here (e.g. 'write script.py that runs a loop')..." autofocus autocomplete="off">
+        <button id="sendBtn" class="btn-primary">
+            <span>Send Message</span>
+            <svg viewBox="0 0 24 24" style="width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2.5;">
+                <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+        </button>
+    </div>
+</div>
+{% endblock %}

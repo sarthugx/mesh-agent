@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Terminal Logs - Mesh-Agent{% endblock %}
+
+{% block page_title %}Agent Execution Console Log{% endblock %}
+
+{% block content %}
+<div class="terminal-wrapper">
+    <div class="glass-card" style="padding:14px 20px; font-size:14px; color:var(--text-secondary); display:flex; justify-content:space-between; align-items:center;">
+        <div style="display:flex; align-items:center; gap:10px;">
+            <svg viewBox="0 0 24 24" style="width:20px; height:20px; stroke:var(--accent-cyan); fill:none; stroke-width:2;">
+                <polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>
+            </svg>
+            <span>
+                This view simulates a terminal display of agent actions, showing LLM reasoning cycles, tool tags issued, and file writes.
+            </span>
+        </div>
+        <button id="clearLogsBtn" class="btn-secondary" style="padding: 6px 12px; font-size: 13px;">Clear Console Logs</button>
+    </div>
+
+    <div style="flex: 1; display: flex; flex-direction: column;">
+        <!-- Terminal TTY bar -->
+        <div class="terminal-header-bar">
+            <div class="terminal-dots">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 12px; color: var(--text-muted);">
+                agent-session@mesh-sandbox:~
+            </div>
+            <div style="width: 50px;"></div> <!-- spacer -->
+        </div>
+        
+        <!-- Scrolling terminal console -->
+        <div id="terminalConsole" class="terminal-console">
+            <div class="terminal-line thought">> Connecting to server session...</div>
+            <div class="terminal-line thought">> Waiting for instructions...</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

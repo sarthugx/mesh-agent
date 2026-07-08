@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "linerun"
+version = "0.1.0"
+description = "Core agent loop, LLM provider strategy pattern, and path-traversal-proof workspace sandbox operations."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+    "httpx>=0.24.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["linerun*"]

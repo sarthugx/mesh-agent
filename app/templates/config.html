@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Config - Mesh-Agent{% endblock %}
+
+{% block page_title %}LLM Provider Configuration{% endblock %}
+
+{% block content %}
+<div class="glass-card" style="max-width:800px;">
+    <div style="margin-bottom:24px;">
+        <h3 style="font-size:18px; font-weight:600; margin-bottom:6px;">Agent Settings</h3>
+        <p style="font-size:14px; color:var(--text-secondary);">
+            Configure which LLM powers the agent. Swapping active providers takes effect immediately without needing to restart the server. Keys are saved in a server-side config file which is ignored by Git.
+        </p>
+    </div>
+
+    {% if message %}
+        <div class="alert-message success">{{ message }}</div>
+    {% endif %}
+    {% if error %}
+        <div class="alert-message error">{{ error }}</div>
+    {% endif %}
+
+    <!-- Connection test outcome -->
+    <div id="testResult" class="alert-message" style="display:none;"></div>
+
+    <form action="/config" method="POST" class="config-layout">
+        
+        <!-- Active Provider select -->
+        <div class="form-group">
+            <label for="provider">Active LLM Provider Strategy</label>
+            <select name="provider" id="provider" class="form-select">
+                <option value="mock" {% if provider == 'mock' %}selected{% endif %}>Mock Provider (Keyless / Dev / Testing)</option>
+                <option value="openai" {% if provider == 'openai' %}selected{% endif %}>OpenAI API (GPT-4o, GPT-4o-mini)</option>
+                <option value="anthropic" {% if provider == 'anthropic' %}selected{% endif %}>Anthropic API (Claude 3.5 Sonnet)</option>
+                <option value="gemini" {% if provider == 'gemini' %}selected{% endif %}>Google Gemini API (Gemini 1.5 Flash)</option>
+            </select>
+        </div>
+
+        <!-- OpenAI Fields -->
+        <div id="openai_fields" style="display:none;">
+            <div class="form-group">
+                <label for="openai_key">OpenAI API Key</label>
+                <input type="password" name="openai_key" id="openai_key" class="form-input" placeholder="sk-..." value="{{ openai_key }}">
+            </div>
+            <div class="form-group">
+                <label for="openai_model">OpenAI Model Name</label>
+                <input type="text" name="openai_model" id="openai_model" class="form-input" placeholder="gpt-4o-mini" value="{{ openai_model }}">
+            </div>
+        </div>
+
+        <!-- Anthropic Fields -->
+        <div id="anthropic_fields" style="display:none;">
+            <div class="form-group">
+                <label for="anthropic_key">Anthropic API Key</label>
+                <input type="password" name="anthropic_key" id="anthropic_key" class="form-input" placeholder="sk-ant-..." value="{{ anthropic_key }}">
+            </div>
+            <div class="form-group">
+                <label for="anthropic_model">Anthropic Model Name</label>
+                <input type="text" name="anthropic_model" id="anthropic_model" class="form-input" placeholder="claude-3-5-sonnet-20240620" value="{{ anthropic_model }}">
+            </div>
+        </div>
+
+        <!-- Gemini Fields -->
+        <div id="gemini_fields" style="display:none;">
+            <div class="form-group">
+                <label for="gemini_key">Gemini API Key</label>
+                <input type="password" name="gemini_key" id="gemini_key" class="form-input" placeholder="AIzaSy..." value="{{ gemini_key }}">
+            </div>
+            <div class="form-group">
+                <label for="gemini_model">Gemini Model Name</label>
+                <input type="text" name="gemini_model" id="gemini_model" class="form-input" placeholder="gemini-2.5-flash" value="{{ gemini_model }}">
+            </div>
+        </div>
+
+        <!-- Action triggers -->
+        <div style="display:flex; gap:12px; margin-top:12px;">
+            <button type="submit" class="btn-primary">Save Settings</button>
+            <button type="button" id="testConnectionBtn" class="btn-secondary">Test Connection</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
